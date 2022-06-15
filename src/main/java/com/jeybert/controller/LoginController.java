@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jeybert.dao.UserDAO;
 import com.jeybert.model.User;
 
 
@@ -30,9 +31,9 @@ public class LoginController extends HttpServlet {
 		        ObjectMapper mapper = new ObjectMapper(); 
 		        User user = mapper.readValue(sb.toString(),User.class); 
 		        
-		        System.out.println("Email - " + user.getEmail() );
-		        System.out.println("Pass - " + user.getPassword() );
-		        
+		        UserDAO a = new UserDAO();
+		        a.connect();
+		 
 		    } finally {
 		        reader.close();
 		    }
