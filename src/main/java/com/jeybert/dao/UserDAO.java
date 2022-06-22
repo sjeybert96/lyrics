@@ -7,17 +7,20 @@ public class UserDAO {
 	
 	public void connect()
 	{
+		Statement st = null ;
+		Connection con = null ;
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://82.180.160.15:3306/lyrics", "jeybert", "iamBlESSED007@@");
+			 con = DriverManager.getConnection("jdbc:mysql://82.180.160.15:3306/lyrics?useSSL=false&allowPublicKeyRetrieval=true", "jeybert", "iamjeYbert007@@");
 			if(con != null)
 			{
-			Statement st = con.createStatement();
+			 st = con.createStatement();
 			ResultSet rs =  st.executeQuery("SELECT * FROM user");
 			if(rs.next())
 			{
 				System.out.println("DATABASE CONNECTED");
+				System.out.println(rs.getString("email"));
 			}
 			}
 			else
@@ -29,6 +32,17 @@ public class UserDAO {
 		{
 			System.out.println("EXCEPTION");
 			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	}
 }
